@@ -12,6 +12,7 @@ type Person = {
 type SearchPageState = {
   searchResults: Person[];
   error: boolean;
+  testError: boolean;
 };
 
 class SearchPage extends React.Component<
@@ -21,6 +22,11 @@ class SearchPage extends React.Component<
   state: SearchPageState = {
     searchResults: [],
     error: false,
+    testError: false,
+  };
+
+  testError = () => {
+    this.setState({ testError: true });
   };
 
   handleSearch = async (searchTerm: string) => {
@@ -37,16 +43,24 @@ class SearchPage extends React.Component<
   };
 
   render() {
-    return (
-      <div className={styles.searchPage}>
-        <div className={styles.searchPageRow}>
-          <SearchBar onSearch={this.handleSearch} />
-        </div>
+    if (this.state.testError) {
+      throw new Error('Test error!');
+    }
 
-        <div className={styles.searchPageRow}>
-          <Results data={this.state.searchResults} />
+    return (
+      <>
+        <button onClick={this.testError}>Тестировать ошибку</button>
+
+        <div className={styles.searchPage}>
+          <div className={styles.searchPageRow}>
+            <SearchBar onSearch={this.handleSearch} />
+          </div>
+
+          <div className={styles.searchPageRow}>
+            <Results data={this.state.searchResults} />
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }
