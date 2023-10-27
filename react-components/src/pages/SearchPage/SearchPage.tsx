@@ -27,6 +27,11 @@ class SearchPage extends React.Component<
     isLoading: false,
   };
 
+  componentDidMount() {
+    const initialSearchTerm = localStorage.getItem('searchTerm') || '';
+    this.handleSearch(initialSearchTerm);
+  }
+
   testError = () => {
     this.setState({ testError: true });
   };
