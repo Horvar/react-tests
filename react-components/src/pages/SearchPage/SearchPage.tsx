@@ -13,6 +13,7 @@ type SearchPageState = {
   searchResults: Person[];
   error: boolean;
   testError: boolean;
+  isLoading: boolean;
 };
 
 class SearchPage extends React.Component<
@@ -23,6 +24,7 @@ class SearchPage extends React.Component<
     searchResults: [],
     error: false,
     testError: false,
+    isLoading: false,
   };
 
   testError = () => {
@@ -30,15 +32,17 @@ class SearchPage extends React.Component<
   };
 
   handleSearch = async (searchTerm: string) => {
+    this.setState({ isLoading: true });
+
     try {
       const response = await fetch(
         `https://swapi.dev/api/people/?search=${searchTerm}`
       );
       const data = (await response.json()) as { results: Person[] };
-      this.setState({ searchResults: data.results });
+      this.setState({ searchResults: data.results, isLoading: false });
     } catch (error) {
       console.error(error);
-      this.setState({ error: true });
+      this.setState({ error: true, isLoading: false });
     }
   };
 
@@ -56,9 +60,13 @@ class SearchPage extends React.Component<
             <SearchBar onSearch={this.handleSearch} />
           </div>
 
-          <div className={styles.searchPageRow}>
-            <Results data={this.state.searchResults} />
-          </div>
+          {this.state.isLoading ? (
+            <div>Загрузка...</div>
+          ) : (
+            <div className={styles.searchPageRow}>
+              <Results data={this.state.searchResults} />
+            </div>
+          )}
         </div>
       </>
     );
