@@ -24,11 +24,14 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     return (
       <div className={styles.searchBar}>
         <input
+          className={styles.searchBarInput}
           type="text"
           value={this.state.searchTerm}
           onChange={(e) => this.setState({ searchTerm: e.target.value })}
         />
-        <button onClick={this.handleSearch}>Поиск</button>
+        <button className={styles.searchBarButton} onClick={this.handleSearch}>
+          Search
+        </button>
       </div>
     );
   }

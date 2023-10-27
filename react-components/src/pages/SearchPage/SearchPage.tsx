@@ -4,10 +4,7 @@ import styles from './SearchPage.module.css';
 import SearchBar from '../../components/SearchBar';
 import Results from '../../components/Results';
 
-type Person = {
-  name: string;
-  gender: string;
-};
+import { Person } from '../../types';
 
 type SearchPageState = {
   searchResults: Person[];
@@ -58,20 +55,22 @@ class SearchPage extends React.Component<
 
     return (
       <>
-        <button onClick={this.testError}>Тестировать ошибку</button>
-
         <div className={styles.searchPage}>
           <div className={styles.searchPageRow}>
             <SearchBar onSearch={this.handleSearch} />
           </div>
 
-          {this.state.isLoading ? (
-            <div>Загрузка...</div>
-          ) : (
-            <div className={styles.searchPageRow}>
+          <div className={styles.searchPageRow}>
+            {this.state.isLoading ? (
+              <div className={styles.loader}>Loading...</div>
+            ) : (
               <Results data={this.state.searchResults} />
-            </div>
-          )}
+            )}
+          </div>
+
+          <button className={styles.errorButton} onClick={this.testError}>
+            Test Error
+          </button>
         </div>
       </>
     );

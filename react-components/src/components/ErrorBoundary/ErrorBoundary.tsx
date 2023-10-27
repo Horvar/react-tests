@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './ErrorBoundary.module.css';
 
 type ErrorBoundaryState = {
   hasError: boolean;
@@ -24,12 +25,17 @@ class ErrorBoundary extends React.Component<
   render() {
     if (this.state.hasError) {
       return (
-        <>
-          <h1>Произошла ошибка.</h1>
-          <button onClick={() => window.location.reload()}>
-            Перезагрузить
-          </button>
-        </>
+        <div className={styles.error}>
+          <div className={styles.errorWrapper}>
+            <h1 className={styles.errorTitle}>An error has occurred</h1>
+            <button
+              className={styles.errorButton}
+              onClick={() => window.location.reload()}
+            >
+              Reload
+            </button>
+          </div>
+        </div>
       );
     }
     return this.props.children;

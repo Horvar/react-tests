@@ -1,4 +1,4 @@
-.searchPage {
+.error {
   max-width: 1200px;
 
   display: flex;
@@ -11,13 +11,20 @@
   margin: 0 auto;
 }
 
-.searchPageRow {
+.errorWrapper {
   border: 1px solid lightgray;
 
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 
   padding: 2em;
+}
+
+.errorTitle {
+  font-size: 32px;
+
+  margin: 0;
 }
 
 .errorButton {
@@ -42,9 +49,4 @@
   &:active {
     background: lightgray;
   }
-}
-
-.loader {
-  font-size: 18px;
-  text-align: center;
 }
