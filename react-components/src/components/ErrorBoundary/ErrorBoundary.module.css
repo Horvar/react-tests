@@ -41,12 +41,12 @@
   cursor: pointer;
 
   margin-left: auto;
+}
 
-  &:hover {
-    background: white;
-  }
+.errorButton:hover {
+  background: white;
+}
 
-  &:active {
-    background: lightgray;
-  }
+.errorButton:active {
+  background: lightgray;
 }
