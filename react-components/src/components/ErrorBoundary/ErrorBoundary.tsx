@@ -1,25 +1,22 @@
-import React from 'react';
+import React, { Component, ReactNode } from 'react';
 import styles from './ErrorBoundary.module.css';
 
-type ErrorBoundaryState = {
-  hasError: boolean;
-};
+interface Props {
+  children: ReactNode;
+}
 
-class ErrorBoundary extends React.Component<
-  React.PropsWithChildren<Record<string, never>>,
-  ErrorBoundaryState
-> {
-  constructor(props: React.PropsWithChildren<Record<string, never>>) {
+interface State {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error('Caught an error:', error, info);
+  componentDidCatch() {
+    this.setState({ hasError: true });
   }
 
   render() {
