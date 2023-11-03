@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './SearchBar.module.css';
 
 type SearchBarProps = {
-  onSearch: (searchTerm: string) => void;
+  onSearch: (searchTerm: string, page: number) => void;
 };
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
@@ -13,7 +13,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const handleSearch = () => {
     const trimmedSearchTerm = searchTerm.trim();
     localStorage.setItem('searchTerm', trimmedSearchTerm);
-    onSearch(trimmedSearchTerm);
+    onSearch(trimmedSearchTerm, 1);
   };
 
   return (

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './SearchPage.module.css';
 import SearchBar from '../../components/SearchBar';
 import Results from '../../components/Results';
@@ -14,16 +15,20 @@ const SearchPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const handlePaginate = (page: number) => {
-    setCurrentPage(page);
-    handleSearch(searchTerm, page);
-  };
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const initialSearchTerm = localStorage.getItem('searchTerm') || '';
-    setSearchTerm(initialSearchTerm);
-    handleSearch(initialSearchTerm);
-  }, []);
+    const page = parseInt(searchParams.get('page') || '1', 10);
+    setCurrentPage(page);
+    handleSearch(searchTerm, page);
+  }, [searchParams]);
+
+  const handlePaginate = (page: number) => {
+    setCurrentPage(page);
+    setSearchParams({ page: page.toString() });
+    handleSearch(searchTerm, page);
+  };
 
   const testErrorFunction = () => {
     setTestError(true);
@@ -32,6 +37,8 @@ const SearchPage: React.FC = () => {
   const handleSearch = async (term: string, page: number = 1) => {
     setIsLoading(true);
     setSearchTerm(term);
+    navigate(`/?page=${page}`);
+
     try {
       const response = await fetch(
         `https://swapi.dev/api/people/?search=${term}&page=${page}`
@@ -72,19 +79,20 @@ const SearchPage: React.FC = () => {
           {isLoading ? (
             <div className={styles.loader}>Loading...</div>
           ) : (
-            <Results data={searchResults} />
+            <>
+              <Results data={searchResults} />
+              <Pagination
+                total={totalResults}
+                currentPage={currentPage}
+                onPaginate={handlePaginate}
+              />
+            </>
           )}
         </div>
 
         <button className={styles.errorButton} onClick={testErrorFunction}>
           Test Error
         </button>
-
-        <Pagination
-          total={totalResults}
-          currentPage={currentPage}
-          onPaginate={handlePaginate}
-        />
       </div>
     </>
   );
