@@ -13,7 +13,6 @@ const SearchPage: React.FC = () => {
   useEffect(() => {
     const initialSearchTerm = localStorage.getItem('searchTerm') || '';
     handleSearch(initialSearchTerm);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const testErrorFunction = () => {
@@ -30,7 +29,6 @@ const SearchPage: React.FC = () => {
       setSearchResults(data.results);
       setIsLoading(false);
     } catch (error) {
-      console.error(error);
       setError(true);
       setIsLoading(false);
     }
@@ -46,6 +44,14 @@ const SearchPage: React.FC = () => {
         <div className={styles.searchPageRow}>
           <SearchBar onSearch={handleSearch} />
         </div>
+
+        {error && (
+          <div className={styles.searchPageRow}>
+            <div className={styles.error}>
+              An error has occurred. Please try again later.
+            </div>
+          </div>
+        )}
 
         <div className={styles.searchPageRow}>
           {isLoading ? (
