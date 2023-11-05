@@ -15,11 +15,13 @@ const Pagination: React.FC<PaginationProps> = ({
   const totalPages = Math.ceil(total / 10);
 
   return (
-    <div>
+    <div className={styles.pagination}>
       {[...Array(totalPages).keys()].map((number) => (
         <button
           key={number}
-          className={number + 1 === currentPage ? styles.active : ''}
+          className={`${styles.paginationButton} ${
+            number + 1 === currentPage ? styles.active : ''
+          }`}
           onClick={() => onPaginate(number + 1)}
         >
           {number + 1}

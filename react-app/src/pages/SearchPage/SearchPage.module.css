@@ -11,13 +11,26 @@
   margin: 0 auto;
 }
 
-.searchPageRow {
+.searchPageRowSearch,
+.searchPageRowResult,
+.searchPageRowControls {
   border: 1px solid lightgray;
 
+  background: #f7f7f7;
+
   display: flex;
-  flex-direction: column;
 
   padding: 2em;
+  box-sizing: border-box;
+}
+
+.searchPageRowControls {}
+
+.searchPageRowSearch {}
+
+.searchPageRowResult {
+  height: 375px;
+  flex-direction: column;
 }
 
 .errorButton {
@@ -47,4 +60,6 @@
 .loader {
   font-size: 18px;
   text-align: center;
+
+  margin: auto;
 }

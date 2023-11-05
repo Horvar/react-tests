@@ -1,0 +1,27 @@
+.pagination {
+  display: flex;
+  gap: 8px;
+}
+
+.paginationButton {
+  width: 32px;
+  height: 32px;
+
+  font-size: 18px;
+
+  border: 1px solid #000;
+  box-sizing: border-box;
+
+  background: lightgray;
+
+  cursor: pointer;
+}
+
+.paginationButton:hover {
+  background: #fff;
+}
+
+.paginationButton.active {
+  border-color: lightgrey;
+  pointer-events: none;
+}

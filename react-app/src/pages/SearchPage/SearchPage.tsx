@@ -63,36 +63,38 @@ const SearchPage: React.FC = () => {
   return (
     <>
       <div className={styles.searchPage}>
-        <div className={styles.searchPageRow}>
+        <div className={styles.searchPageRowSearch}>
           <SearchBar onSearch={handleSearch} />
         </div>
 
         {error && (
-          <div className={styles.searchPageRow}>
+          <div className={styles.searchPageRowSearch}>
             <div className={styles.error}>
               An error has occurred. Please try again later.
             </div>
           </div>
         )}
 
-        <div className={styles.searchPageRow}>
+        <div className={styles.searchPageRowResult}>
           {isLoading ? (
             <div className={styles.loader}>Loading...</div>
           ) : (
             <>
               <Results data={searchResults} />
-              <Pagination
-                total={totalResults}
-                currentPage={currentPage}
-                onPaginate={handlePaginate}
-              />
             </>
           )}
         </div>
 
-        <button className={styles.errorButton} onClick={testErrorFunction}>
-          Test Error
-        </button>
+        <div className={styles.searchPageRowControls}>
+          <Pagination
+            total={totalResults}
+            currentPage={currentPage}
+            onPaginate={handlePaginate}
+          />
+          <button className={styles.errorButton} onClick={testErrorFunction}>
+            Test Error
+          </button>
+        </div>
       </div>
     </>
   );
