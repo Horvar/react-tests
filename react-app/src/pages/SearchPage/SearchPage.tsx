@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  useNavigate,
+  useSearchParams,
+  useParams,
+  Outlet,
+} from 'react-router-dom';
 import styles from './SearchPage.module.css';
 import SearchBar from '../../components/SearchBar';
 import Results from '../../components/Results';
@@ -17,6 +22,25 @@ const SearchPage: React.FC = () => {
 
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const { details } = useParams();
+  const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
+
+  const openDetails = (person: Person) => {
+    setSelectedPerson(person);
+    navigate(`/${currentPage}/details/${person.name}`);
+  };
+
+  const closeDetails = () => {
+    setSelectedPerson(null);
+    navigate(`/search/${currentPage}`);
+  };
+
+  useEffect(() => {
+    if (!details) {
+      setSelectedPerson(null);
+    }
+  }, [details]);
 
   useEffect(() => {
     const page = parseInt(searchParams.get('page') || '1', 10);
@@ -80,9 +104,13 @@ const SearchPage: React.FC = () => {
             <div className={styles.loader}>Loading...</div>
           ) : (
             <>
-              <Results data={searchResults} />
+              <Results data={searchResults} onItemSelected={openDetails} />
             </>
           )}
+        </div>
+
+        <div className={styles.searchDetails}>
+          {details && <Outlet context={{ selectedPerson, closeDetails }} />}
         </div>
 
         <div className={styles.searchPageRowControls}>

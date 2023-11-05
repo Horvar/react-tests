@@ -3,4 +3,8 @@ export type Person = {
   gender: string;
   height: string;
   mass: string;
+  url: string;
+  skin_color: string;
+  eye_color: string;
+  hair_color: string;
 };

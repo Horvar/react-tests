@@ -1,55 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useOutletContext } from 'react-router-dom';
 import styles from './DetailPage.module.css';
-import { useParams } from 'react-router-dom';
+
 import { Person } from '../../types';
 
-const DetailPage: React.FC = () => {
-  const [personDetails, setPersonDetails] = useState<Person | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
+interface OutletContextType {
+  selectedPerson: Person;
+  closeDetails: () => void;
+}
 
-  const { id } = useParams<{ id: string }>();
-
-  useEffect(() => {
-    const fetchPersonDetails = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(`https://swapi.dev/api/people/${id}`);
-        const data = (await response.json()) as Person;
-        setPersonDetails(data);
-        setIsLoading(false);
-      } catch (error) {
-        setError(true);
-        setIsLoading(false);
-      }
-    };
-
-    fetchPersonDetails();
-  }, [id]);
-
-  if (isLoading) {
-    return <div className={styles.loader}>Loading...</div>;
-  }
-
-  if (error) {
-    return (
-      <div className={styles.error}>
-        Failed to load details. Please try again later.
-      </div>
-    );
-  }
-
-  if (!personDetails) {
-    return <div className={styles.error}>Person not found.</div>;
-  }
+const DetailPage = () => {
+  const { selectedPerson, closeDetails } =
+    useOutletContext<OutletContextType>();
 
   return (
-    <div className={styles.detailPage}>
-      <h1>{personDetails.name}</h1>
-      <div>
-        <p>Height: {personDetails.height}</p>
-        <p>Mass: {personDetails.mass}</p>
-      </div>
+    <div className={styles.details}>
+      {selectedPerson ? (
+        <>
+          <button className={styles.detailsClose} onClick={closeDetails}>
+            Close
+          </button>
+          <h2 className={styles.detailsTitle}>{selectedPerson.name}</h2>
+          <div className={styles.detailsData}>
+            <span>Gender: </span>
+            <span>
+              <b>{selectedPerson.gender}</b>
+            </span>
+          </div>
+          <div className={styles.detailsData}>
+            <span>Height: </span>
+            <span>
+              <b>{selectedPerson.height}</b>
+            </span>
+          </div>
+          <div className={styles.detailsData}>
+            <span>Mass: </span>
+            <span>
+              <b>{selectedPerson.mass}</b>
+            </span>
+          </div>
+          <div className={styles.detailsData}>
+            <span>Hair color: </span>
+            <span>
+              <b>{selectedPerson.hair_color}</b>
+            </span>
+          </div>
+          <div className={styles.detailsData}>
+            <span>Eye color: </span>
+            <span>
+              <b>{selectedPerson.eye_color}</b>
+            </span>
+          </div>
+          <div className={styles.detailsData}>
+            <span>Skin color: </span>
+            <span>
+              <b>{selectedPerson.skin_color}</b>
+            </span>
+          </div>
+        </>
+      ) : (
+        <div className={styles.loader}>Loading...</div>
+      )}
     </div>
   );
 };
