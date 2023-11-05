@@ -37,6 +37,19 @@ const SearchPage: React.FC = () => {
   };
 
   useEffect(() => {
+    // Получаем запрос из URL или localStorage, предпочтение отдаём URL.
+    let query = searchParams.get('search');
+    if (query === null) {
+      query = localStorage.getItem('searchTerm') || '';
+      setSearchTerm(query); // Сохраняем термин поиска в стейт.
+    }
+
+    // Выполняем поиск с полученным запросом.
+    handleSearch(query, currentPage);
+    // Так как handleSearch и currentPage не изменяются, зависимостей нет.
+  }, []);
+
+  useEffect(() => {
     if (!details) {
       setSelectedPerson(null);
     }
@@ -45,8 +58,13 @@ const SearchPage: React.FC = () => {
   useEffect(() => {
     const page = parseInt(searchParams.get('page') || '1', 10);
     setCurrentPage(page);
-    handleSearch(searchTerm, page);
   }, [searchParams]);
+
+  useEffect(() => {
+    if (searchTerm) {
+      handleSearch(searchTerm, currentPage);
+    }
+  }, [searchTerm, currentPage]);
 
   const handlePaginate = (page: number) => {
     setCurrentPage(page);
@@ -60,7 +78,6 @@ const SearchPage: React.FC = () => {
 
   const handleSearch = async (term: string, page: number = 1) => {
     setIsLoading(true);
-    setSearchTerm(term);
     navigate(`/?page=${page}`);
 
     try {
