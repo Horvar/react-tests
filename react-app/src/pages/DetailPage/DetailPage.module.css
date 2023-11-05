@@ -1,8 +1,24 @@
-.details {
+.details {}
+
+.detailsOverlay,
+.detailsModal {
   position: fixed;
   top: 0;
   right: 0;
+}
 
+.detailsOverlay {
+  width: 100%;
+  height: 100%;
+
+  background: #000;
+
+  opacity: .5;
+
+  cursor: pointer;
+}
+
+.detailsModal {
   width: 30%;
   height: 100%;
 

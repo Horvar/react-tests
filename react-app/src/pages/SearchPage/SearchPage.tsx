@@ -33,7 +33,7 @@ const SearchPage: React.FC = () => {
 
   const closeDetails = () => {
     setSelectedPerson(null);
-    navigate(`/search/${currentPage}`);
+    navigate(`/${currentPage}`);
   };
 
   useEffect(() => {
