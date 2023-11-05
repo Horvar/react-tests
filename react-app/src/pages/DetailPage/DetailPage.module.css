@@ -19,7 +19,7 @@
 }
 
 .detailsModal {
-  width: 30%;
+  width: 580px;
   height: 100%;
 
   background: #fff;
@@ -64,11 +64,15 @@
 
 .detailsTitle {
   font-size: 40px;
+  width: 100%;
 
   border-bottom: 1px solid lightgray;
 
+  padding-right: 120px;
   padding-bottom: 16px;
   margin: 0 0 32px;
+
+  box-sizing: border-box;
 }
 
 .detailsData {
