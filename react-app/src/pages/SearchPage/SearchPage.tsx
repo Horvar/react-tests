@@ -37,16 +37,13 @@ const SearchPage: React.FC = () => {
   };
 
   useEffect(() => {
-    // Получаем запрос из URL или localStorage, предпочтение отдаём URL.
     let query = searchParams.get('search');
     if (query === null) {
       query = localStorage.getItem('searchTerm') || '';
-      setSearchTerm(query); // Сохраняем термин поиска в стейт.
+      setSearchTerm(query);
     }
 
-    // Выполняем поиск с полученным запросом.
     handleSearch(query, currentPage);
-    // Так как handleSearch и currentPage не изменяются, зависимостей нет.
   }, []);
 
   useEffect(() => {
