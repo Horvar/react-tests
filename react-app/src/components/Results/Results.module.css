@@ -4,6 +4,12 @@
   grid-gap: 1em;
 }
 
+.resultsNotFound {
+  font-size: 32px;
+
+  margin: 0;
+}
+
 .resultsItem {
   display: flex;
   flex-direction: column;

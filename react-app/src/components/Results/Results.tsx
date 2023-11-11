@@ -21,6 +21,10 @@ const Results: React.FC<ResultsProps> = ({ data, onItemSelected }) => {
     navigate(`/search/details/${person.name}?page=${currentPage}`);
   };
 
+  if (data.length === 0) {
+    return <div className={styles.resultsNotFound}>No cards available</div>;
+  }
+
   return (
     <div className={styles.results}>
       {data.map((result: Person) => (
@@ -28,6 +32,7 @@ const Results: React.FC<ResultsProps> = ({ data, onItemSelected }) => {
           className={styles.resultsItem}
           key={result.url}
           onClick={() => handleItemClick(result)}
+          data-testid="result-item"
         >
           <h3 className={styles.resultsName}>{result.name}</h3>
           <p className={styles.resultsText}>
