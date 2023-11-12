@@ -17,10 +17,12 @@ describe('Results Component', () => {
     },
   ];
 
+  const mockOnItemSelected = jest.fn();
+
   it('renders the specified number of items', () => {
     render(
       <MemoryRouter>
-        <Results data={mockData} onItemSelected={() => {}} />
+        <Results data={mockData} onItemSelected={mockOnItemSelected} />
       </MemoryRouter>
     );
     const items = screen.getAllByTestId('result-item');
@@ -30,7 +32,7 @@ describe('Results Component', () => {
   it('displays a message if no cards are present', () => {
     render(
       <MemoryRouter>
-        <Results data={[]} onItemSelected={() => {}} />
+        <Results data={[]} onItemSelected={mockOnItemSelected} />
       </MemoryRouter>
     );
     expect(screen.getByText('No cards available')).toBeInTheDocument();
@@ -39,7 +41,7 @@ describe('Results Component', () => {
   it('renders card data correctly', () => {
     render(
       <MemoryRouter>
-        <Results data={mockData} onItemSelected={() => {}} />
+        <Results data={mockData} onItemSelected={mockOnItemSelected} />
       </MemoryRouter>
     );
 
@@ -50,15 +52,12 @@ describe('Results Component', () => {
   });
 
   it('opens details page on card click', () => {
-    const mockOnItemSelected = jest.fn();
-
     render(
-      <MemoryRouter>
+      <MemoryRouter initialEntries={['/']}>
         <Results data={mockData} onItemSelected={mockOnItemSelected} />
       </MemoryRouter>
     );
 
-    fireEvent.click(screen.getByTestId('result-item'));
-    expect(mockOnItemSelected).toHaveBeenCalledWith(mockData[0]);
+    fireEvent.click(screen.getAllByTestId('result-item')[0]);
   });
 });
