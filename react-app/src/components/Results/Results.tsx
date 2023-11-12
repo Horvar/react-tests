@@ -10,15 +10,15 @@ type ResultsProps = {
   onItemSelected: (person: Person) => void;
 };
 
-const Results: React.FC<ResultsProps> = ({ data, onItemSelected }) => {
+const Results: React.FC<ResultsProps> = ({ data }) => {
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
   const handleItemClick = (person: Person) => {
-    onItemSelected(person);
-    navigate(`/search/details/${person.name}?page=${currentPage}`);
+    const personId = person.url.split('/').slice(-2, -1)[0];
+    navigate(`/details/${personId}?page=${currentPage}`);
   };
 
   if (data.length === 0) {

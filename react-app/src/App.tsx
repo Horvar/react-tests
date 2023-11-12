@@ -6,6 +6,7 @@ import SearchProvider from './context/searchContext';
 import SearchPage from './pages/SearchPage';
 import DetailPage from './pages/DetailPage';
 import ErrorBoundary from './components/ErrorBoundary';
+import NotFoundPage from './pages/NotFoundPage';
 
 import { Routes, Route } from 'react-router-dom';
 
@@ -16,10 +17,11 @@ const App = () => {
         <BrowserRouter>
           <ErrorBoundary>
             <Routes>
-              <Route path="/" element={<SearchPage />} />
-              <Route path=":page" element={<SearchPage />}>
-                <Route path="details/:details" element={<DetailPage />} />
+              <Route path="/" element={<SearchPage />}>
+                <Route path="details/:detailsId" element={<DetailPage />} />
+                <Route path="page/:pageNumber" element={<SearchPage />} />
               </Route>
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </ErrorBoundary>
         </BrowserRouter>

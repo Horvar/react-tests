@@ -24,9 +24,11 @@
   box-sizing: border-box;
 }
 
-.searchPageRowControls {}
+.searchPageRowControls {
+}
 
-.searchPageRowSearch {}
+.searchPageRowSearch {
+}
 
 .searchPageRowResult {
   height: 375px;

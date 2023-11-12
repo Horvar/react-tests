@@ -4,6 +4,7 @@ import {
   useSearchParams,
   useParams,
   Outlet,
+  useLocation,
 } from 'react-router-dom';
 import styles from './SearchPage.module.css';
 import SearchBar from '../../components/SearchBar';
@@ -20,6 +21,14 @@ const SearchPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/' && searchTerm === '') {
+      handleSearch('', 1);
+    }
+  }, []);
+
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -27,35 +36,34 @@ const SearchPage: React.FC = () => {
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
 
   const openDetails = (person: Person) => {
+    const personId = person.url.split('/').slice(-2, -1)[0];
     setSelectedPerson(person);
-    navigate(`/${currentPage}/details/${person.name}`);
+    navigate(`/details/${personId}`);
   };
 
   const closeDetails = () => {
-    setSelectedPerson(null);
-    navigate(`/${currentPage}`);
+    navigate(-1);
   };
 
   useEffect(() => {
-    let query = searchParams.get('search');
-    if (query === null) {
-      query = localStorage.getItem('searchTerm') || '';
+    const query = searchParams.get('search');
+    const page = parseInt(searchParams.get('page') || '1', 10);
+
+    if (query !== null) {
       setSearchTerm(query);
     }
+    setCurrentPage(page);
 
-    handleSearch(query, currentPage);
-  }, []);
+    if (query !== null && query !== searchTerm) {
+      handleSearch(query, page);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (!details) {
       setSelectedPerson(null);
     }
   }, [details]);
-
-  useEffect(() => {
-    const page = parseInt(searchParams.get('page') || '1', 10);
-    setCurrentPage(page);
-  }, [searchParams]);
 
   useEffect(() => {
     if (searchTerm) {
@@ -65,7 +73,7 @@ const SearchPage: React.FC = () => {
 
   const handlePaginate = (page: number) => {
     setCurrentPage(page);
-    setSearchParams({ page: page.toString() });
+    setSearchParams({ search: searchTerm, page: page.toString() });
     handleSearch(searchTerm, page);
   };
 
@@ -75,7 +83,7 @@ const SearchPage: React.FC = () => {
 
   const handleSearch = async (term: string, page: number = 1) => {
     setIsLoading(true);
-    navigate(`/?page=${page}`);
+    setSearchParams({ search: term, page: page.toString() });
 
     try {
       const response = await fetch(
@@ -124,7 +132,7 @@ const SearchPage: React.FC = () => {
         </div>
 
         <div className={styles.searchDetails}>
-          {details && <Outlet context={{ selectedPerson, closeDetails }} />}
+          <Outlet context={{ selectedPerson, closeDetails }} />
         </div>
 
         <div className={styles.searchPageRowControls}>

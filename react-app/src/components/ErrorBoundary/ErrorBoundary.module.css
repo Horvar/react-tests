@@ -14,6 +14,8 @@
 .errorWrapper {
   border: 1px solid lightgray;
 
+  background: #f7f7f7;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
