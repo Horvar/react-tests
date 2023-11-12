@@ -1,0 +1,47 @@
+.searchBar {
+  display: flex;
+  gap: 32px;
+
+  margin: auto;
+}
+
+.searchBarInput,
+.searchBarButton {
+  height: 32px;
+}
+
+.searchBarInput {
+  width: 320px;
+
+  padding: 0 16px;
+  box-sizing: border-box;
+
+  font-size: 18px;
+
+  border: 1px solid black;
+}
+
+.searchBarInput:focus {
+  outline: none;
+}
+
+.searchBarButton {
+  width: 128px;
+
+  background: lightgray;
+
+  border: 1px solid black;
+  box-sizing: border-box;
+
+  font-size: 18px;
+
+  cursor: pointer;
+}
+
+.searchBarButton:hover {
+  background: white;
+}
+
+.searchBarButton:active {
+  background: lightgray;
+}

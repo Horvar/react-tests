@@ -1,0 +1,99 @@
+.details {
+}
+
+.detailsOverlay,
+.detailsModal {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.detailsOverlay {
+  width: 100%;
+  height: 100%;
+
+  background: #000;
+
+  opacity: 0.5;
+
+  cursor: pointer;
+}
+
+.detailsModal {
+  width: 580px;
+  height: 100%;
+
+  background: #fff;
+  border-left: 1px solid lightgray;
+
+  padding: 64px 32px;
+  box-sizing: border-box;
+}
+
+.detailsClose {
+  height: 32px;
+
+  position: absolute;
+  top: 70px;
+  right: 32px;
+}
+
+.searchBarInput:focus {
+  outline: none;
+}
+
+.detailsClose {
+  width: 128px;
+
+  background: lightgray;
+
+  border: 1px solid black;
+  box-sizing: border-box;
+
+  font-size: 18px;
+
+  cursor: pointer;
+}
+
+.detailsClose:hover {
+  background: white;
+}
+
+.detailsClose:active {
+  background: lightgray;
+}
+
+.detailsTitle {
+  font-size: 40px;
+  width: 100%;
+
+  border-bottom: 1px solid lightgray;
+
+  padding-right: 120px;
+  padding-bottom: 16px;
+  margin: 0 0 32px;
+
+  box-sizing: border-box;
+}
+
+.detailsData {
+  font-size: 24px;
+
+  color: gray;
+}
+
+.detailsData:not(:last-of-type) {
+  margin-bottom: 8px;
+}
+
+.detailsData b {
+  font-weight: normal;
+  color: #000;
+}
+
+.loader {
+  font-size: 18px;
+  text-align: center;
+
+  margin: auto;
+}

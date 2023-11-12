@@ -1,0 +1,63 @@
+.notFound {
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding: 4em 2em;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.notFoundWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 1px solid lightgray;
+
+  background: #f7f7f7;
+
+  display: flex;
+
+  padding: 2em;
+  box-sizing: border-box;
+}
+
+.notFoundError {
+  font-size: 128px;
+}
+
+.notFoundTitle {
+  font-size: 32px;
+  margin: 0;
+}
+
+.notFoundButton {
+  width: 128px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: lightgray;
+
+  border: 1px solid black;
+  box-sizing: border-box;
+
+  color: inherit;
+  text-decoration: none;
+  font-size: 18px;
+
+  cursor: pointer;
+
+  margin-top: 64px;
+}
+
+.notFoundButton:hover {
+  background: white;
+}
+
+.notFoundButton:active {
+  background: lightgray;
+}
